@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { ipStatusApiResponse } from "../types/ipcheck";
 import styles from "./app.module.scss";
+import { Tile } from "./components/Tile/Tile";
 
 export function App() {
   const [ipData, setIpData] = useState<ipStatusApiResponse | null>(null);
@@ -69,24 +70,17 @@ export function App() {
       {ipData ? (
         <>
           {ipData.ClientIP && (
-            <h1 className={`${styles.ipinfo} ${styles.lineLimitone}`}>
-              {ipData.ClientIP}
-            </h1>
+            <Tile text={ipData.ClientIP} oneLineLimit />
           )}
           {ipData.Name && (
-            <h1 className={`${styles.ipinfo} ${styles.lineLimitone}`}>
-              {ipData.Name}
-            </h1>
+            <Tile text={ipData.Name} oneLineLimit />
           )}
           {ipData.Organization && (
-            <h1 className={`${styles.ipinfo} ${styles.lineLimittwo}`}>
-              {ipData.Organization}
-            </h1>
+            <Tile text={ipData.Organization} twoLineLimit />
           )}
-          {/* {ipData.status && <h1 className={`${styles.ipinfo}`}>{ipData.status}</h1>} */}
         </>
       ) : (
-        <h1 className={`${styles.ipinfo}`}>Loading...</h1>
+        <Tile text="Loading..." />
       )}
     </div>
   );
