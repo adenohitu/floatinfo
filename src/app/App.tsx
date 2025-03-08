@@ -1,27 +1,26 @@
 import styles from "./app.module.scss";
+import { ClientIP } from "./components/IpInfo/ClientIP";
+import { Name } from "./components/IpInfo/Name";
+import { Organization } from "./components/IpInfo/Organization";
 import { Tile } from "./components/Tile/Tile";
 import { useIpdata } from "./hooks/useipdata";
 
 export function App() {
   const ipData = useIpdata();
 
+  if (!ipData) {
+    return (
+      <div className={styles.windowParent}>
+        <Tile text="Loading..." />
+      </div>
+    );
+  }
+
   return (
     <div className={styles.windowParent}>
-      {ipData ? (
-        <>
-          {ipData.ClientIP && (
-            <Tile text={ipData.ClientIP} oneLineLimit />
-          )}
-          {ipData.Name && (
-            <Tile text={ipData.Name} oneLineLimit />
-          )}
-          {ipData.Organization && (
-            <Tile text={ipData.Organization} twoLineLimit />
-          )}
-        </>
-      ) : (
-        <Tile text="Loading..." />
-      )}
+      <ClientIP />
+      <Name />
+      <Organization />
     </div>
   );
 }
